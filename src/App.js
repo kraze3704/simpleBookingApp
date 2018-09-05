@@ -49,7 +49,7 @@ export default class App extends Component {
         <header className="App-header">
           <h1 className="App-title">MyLaundry</h1>
           <div>
-            <Login _login={this.state._isAuth} />
+            <Login _login={this.state._isAuth} _user={this.state.user}/>
           </div>
         </header>
 

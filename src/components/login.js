@@ -28,9 +28,8 @@ export default class Login extends Component {
         const { email, password } = this.state;
 
         _Auth.signInWithEmailAndPassword(email, password)
-        .then( () => {})
         .catch( () => {
-                console.log('login attempt failed');
+                alert('login attempt failed');
         });
 
         this.refs.login_dialog.hide();
@@ -57,7 +56,7 @@ export default class Login extends Component {
                 <div>
                     <SkyLight dialogStyles={_login_dialog} hideOnOverlayClicked ref="login_dialog">
                         <input type='text' name='email' placeholder='Email' onChange={this._handleChange} value={this.state.email} />
-                        <input type='text' name='password' placeholder='Password' onChange={this._handleChange} value={this.state.password} />
+                        <input type='password' name='password' placeholder='Password' onChange={this._handleChange} value={this.state.password} />
                         <br />
                         <button onClick={this._login}>Login</button> />
                     </SkyLight>
@@ -72,7 +71,7 @@ export default class Login extends Component {
                 displays the username / logout button
             */
             <div>
-                <p>{this.state.email}</p>
+                <p>{this.props._user}</p>
                 <button onClick={this._logout}>Logout</button>
             </div>
         )
