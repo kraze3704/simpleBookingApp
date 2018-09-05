@@ -48,7 +48,8 @@ export default class AddOrder extends Component{
                 <button onClick={this._submit}>Submit</button>
                 </Skylight>
 
-                <button onClick={()=> this.refs.order_dialog.show()}> Order new laundry </button>
+                <button className='btn btn-outline-info' onClick={()=> this.refs.order_dialog.show()}> Order new laundry </button>
+                <a href='https://calendar.google.com' target='_blank' rel='noopener noreferrer'><button className='btn btn-outline-info'>Google Calendar</button></a>
             </div>
         )
     }

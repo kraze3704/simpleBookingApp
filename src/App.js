@@ -20,6 +20,7 @@ export default class App extends Component {
     this.state = {
       user: null,
       _isAuth: false,
+      _google: false,
     }
     /* 
       user contains the id of the user, null if not logged in
@@ -35,7 +36,7 @@ export default class App extends Component {
       }
       else
       {
-        this.setState({ user: null, _isAuth: false, });
+        this.setState({ user: null, _isAuth: false, _google: false, });
         // some notice to alert the user that the login attempt failed? <<
         // => added alert in login.js
       }
@@ -49,12 +50,12 @@ export default class App extends Component {
         <header className="App-header">
           <h1 className="App-title">MyLaundry</h1>
           <div>
-            <Login _login={this.state._isAuth} _user={this.state.user}/>
+            <Login _login={this.state._isAuth} _user={this.state.user} that={this}/>
           </div>
         </header>
 
         <div className="App-content">
-          <Orderlist _user={this.state.user}/>
+          <Orderlist _user={this.state.user} _google={this.state._google}/>
           {/* passes user's id (email) to Orderlist */}
         </div>
 

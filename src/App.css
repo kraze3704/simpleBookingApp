@@ -9,13 +9,14 @@ header {
 
 .App-header {
   background-color: #222;
-  height: 70px;
   padding: 10px 15%;
   color: white;
 }
 
 .App-content {
+/*
   border: red solid 2px;
+*/
   display: flex;
   justify-content: center;
 }

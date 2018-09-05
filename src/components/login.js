@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import SkyLight from 'react-skylight';
-import { _Auth } from '../firebase/config';
 
+import {
+        _Auth,
+        _googleLogin
+         } from '../firebase/config';
 /*
     displays the current user & logout button when logged in,
     and the login button when there is no user.
@@ -41,15 +44,32 @@ export default class Login extends Component {
 
     _logout = (e) => {
         e.preventDefault();
-        return _Auth.signOut();
+        return _Auth.signOut()
+                .then((res) => console.log(res))
+                .catch(err => console.log('error: ' + err));
+    }
+
+    _googleLogin = (e) => {
+        e.preventDefault();
+
+        _googleLogin().then(result => {
+            let token = result.credential.accessToken;
+            console.log(token);
+            let user = result.user;
+            console.log(user);
+
+            this.props.that.setState({
+                _google: true,
+            })
+        });
     }
 
     render() {
         const _login_dialog = {
-            width: '300px',
-            height: '500px',
+            width: '50%',
+            height: '50%',
             marginTop: '-20%',
-            marginLeft: '-35%',
+            marginLeft: '-25%',
         }
 
         if (!this.props._login){
@@ -57,16 +77,36 @@ export default class Login extends Component {
                 displays the login button the passed _login flag is false
             */
             return(
-                <div>
+                <div className='row align-items-center'>
                     <SkyLight dialogStyles={_login_dialog} hideOnOverlayClicked ref="login_dialog">
-                        <input type='text' name='email' placeholder='Email' onChange={this._handleChange} value={this.state.email} />
-                        <input type='password' name='password' placeholder='Password' onChange={this._handleChange} value={this.state.password} />
-                        <br />
-                        <button onClick={this._login}>Login</button> />
+                        <div className='col'>
+                            <p className="text-dark">
+                            Login with test account
+                            </p>
+                        </div>
+                        <div className='col'>
+                            <input className='col' type='text' name='email' placeholder='Email' onChange={this._handleChange} value={this.state.email} /><br />
+                            <input className='col' type='password' name='password' placeholder='Password' onChange={this._handleChange} value={this.state.password} />
+                            <br />
+                            <button className='col btn btn-dark' onClick={this._login}>Login</button> />
+                        </div>
+                        <div>
+                            <p className="text-secondary">
+                            ******************<br/>
+                            TEST ACCOUNT<br/>
+                            id: test@test.com<br/>
+                            pw: 123456<br/>
+                            ******************<br/>
+                            </p>
+                        </div>
                     </SkyLight>
 
                     <div>
-                        <button onClick={() => this.refs.login_dialog.show()}>Login</button>
+                        <button className="btn btn-dark btn-sm" onClick={() => this.refs.login_dialog.show()}>sign in with test Account</button>
+                    </div>
+
+                    <div>
+                        <button className="btn btn-dark btn-sm" onClick={this._googleLogin}>sign in with Google</button>
                     </div>
                 </div>
             )
@@ -75,8 +115,10 @@ export default class Login extends Component {
                 displays the username / logout button
             */
             <div>
-                <p>{this.props._user}</p>
-                <button onClick={this._logout}>Logout</button>
+                {/*
+                <a>{this.props._user}</a>
+                */}
+                <button className="btn btn-dark" onClick={this._logout}>Logout</button>
             </div>
         )
     }
