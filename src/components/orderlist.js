@@ -8,8 +8,6 @@ import './orderlist.css';
     /*
         fetches the order list data for the user
         only when authentication is done.
-
-        + google calendar to add later?
     */
 
 export default class Orderlist extends Component{
@@ -37,6 +35,10 @@ export default class Orderlist extends Component{
         return(
             <a href={googleCalendarUrl} target='_blank'><button> add to G</button></a>
         )
+
+        /*
+        temporary solution to call google calendar add event to access client's google calendar
+        */
     }
 
     _loadOrderlist = () => {
@@ -56,12 +58,36 @@ export default class Orderlist extends Component{
                     orderlist.push(orderitem);
                 })
             }
-        ).then((e)=>
+        ).then((e)=> {
+            let sortedList = orderlist.sort(function(a, b){
+                if(a.pickup_date > b.pickup_date){
+                    return 1;
+                }
+                if(a.pickup_date  < b.pickup_date){
+                    return -1;
+                }
+                if(a.pickup_date == b.pickup_date){
+                    if(a.delivery_date > b.delivery_date){
+                        return 1;
+                    }
+                    if(a.delivery_date < b.delivery_date){
+                        return -1;
+                    }
+                }
+                else{
+                    return 0;
+                }
+            });
+            /*
+            sort the retrieved list by pickup_date, delivery_date in ascending order
+            */
+
             this.setState({
-                orderlist: orderlist,
-            })
+                orderlist: sortedList,
+            });
+        }
         );
-        /* force function to wait for whole array to be loaded, then setState */
+        /* force function to wait for whole array to be loaded with .then(), setState after */
     }
 
     _addOrder = (newOrder) => {
@@ -127,7 +153,7 @@ export default class Orderlist extends Component{
                 </tbody>
             </table>
 
-            <form action='https://calendar.google.com/calendar/embed?src=tosva291qjsuka68svdr52k0gc%40group.calendar.google.com&ctz=Europe%2FHelsinki' target='_blank'>
+            <form action='https://calendar.google.com/' target='_blank'>
                 <input type='submit' value='calendar'/>
             </form>
 

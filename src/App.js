@@ -12,7 +12,6 @@ import { _Auth } from './firebase/config';
       login.js manages login and logout function
       orderlist.js manages listing the orders for the customer
 
-      + BrowserRouter for dispalying pages or no?
   */
 
 export default class App extends Component {
@@ -38,6 +37,7 @@ export default class App extends Component {
       {
         this.setState({ user: null, _isAuth: false, });
         // some notice to alert the user that the login attempt failed? <<
+        // => added alert in login.js
       }
     });
   }

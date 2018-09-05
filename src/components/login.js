@@ -28,8 +28,12 @@ export default class Login extends Component {
         const { email, password } = this.state;
 
         _Auth.signInWithEmailAndPassword(email, password)
-        .catch( () => {
+        .catch( (err) => {
+                console.log('login failed: ' + err);
                 alert('login attempt failed');
+                /*
+                print error msg in console and alert user when login fails
+                */
         });
 
         this.refs.login_dialog.hide();
