@@ -1,3 +1,6 @@
+## simplified web booking app
+demo available on: https://kraze3704.github.io/simplebookingapp/
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
